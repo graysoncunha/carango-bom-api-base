@@ -31,7 +31,7 @@ public class MarcaFacade {
 
 
     public Marca cadastrar(Marca novaMarca) throws MarcaCadastradaAnteriormenteException {
-        Marca marca = repository.findByNome(novaMarca.getNome());
+        var marca = repository.findByNome(novaMarca.getNome());
 
         if (marca != null) {
             throw new MarcaCadastradaAnteriormenteException();
@@ -41,7 +41,7 @@ public class MarcaFacade {
     }
 
     public Marca alterar(Long id, Marca dadosAlteracaoMarca) throws MarcaNaoEncontradaException {
-        Marca marca = recuperar(id);
+        var marca = recuperar(id);
 
         marca.setNome(dadosAlteracaoMarca.getNome());
 

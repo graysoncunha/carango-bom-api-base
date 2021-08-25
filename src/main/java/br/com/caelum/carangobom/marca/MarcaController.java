@@ -35,11 +35,10 @@ public class MarcaController {
 
     @GetMapping("/{id}")
     @Transactional
-    public ResponseEntity<Marca> recuperarPoId(@PathVariable Long id)
-            throws MarcaNaoEncontradaException {
+    public ResponseEntity<Marca> recuperarPorId(@PathVariable Long id) {
 
         try {
-            Marca marca = marcaFacade.recuperar(id);
+            var marca = marcaFacade.recuperar(id);
 
             return ResponseEntity.ok(marca);
         } catch (MarcaNaoEncontradaException e) {
@@ -50,9 +49,9 @@ public class MarcaController {
     @PostMapping
     @Transactional
     public ResponseEntity<Marca> cadastrar(@Valid @RequestBody Marca novaMarca,
-            UriComponentsBuilder uriBuilder) throws MarcaCadastradaAnteriormenteException {
-        Marca marcaCadastrada = marcaFacade.cadastrar(novaMarca);
+            UriComponentsBuilder uriBuilder) {
         try {
+            var marcaCadastrada = marcaFacade.cadastrar(novaMarca);
             URI h = uriBuilder.path("/marcas/{id}").buildAndExpand(marcaCadastrada.getId()).toUri();
             return ResponseEntity.created(h).body(marcaCadastrada);
 
@@ -64,10 +63,10 @@ public class MarcaController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<Marca> alterar(@PathVariable Long id,
-            @Valid @RequestBody Marca dadosAltercaoMarca) throws MarcaNaoEncontradaException {
+            @Valid @RequestBody Marca dadosAltercaoMarca) {
 
         try {
-            Marca marcaAlterada = marcaFacade.alterar(id, dadosAltercaoMarca);
+            var marcaAlterada = marcaFacade.alterar(id, dadosAltercaoMarca);
             return ResponseEntity.ok(marcaAlterada);
         } catch (MarcaNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
@@ -76,9 +75,9 @@ public class MarcaController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Marca> deletar(@PathVariable Long id) throws MarcaNaoEncontradaException {
+    public ResponseEntity<Marca> deletar(@PathVariable Long id) {
         try {
-            Marca marca = marcaFacade.deletar(id);
+            var marca = marcaFacade.deletar(id);
 
             return ResponseEntity.ok(marca);
 
