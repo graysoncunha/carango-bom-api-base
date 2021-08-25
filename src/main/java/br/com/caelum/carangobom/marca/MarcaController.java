@@ -2,7 +2,6 @@ package br.com.caelum.carangobom.marca;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +39,9 @@ public class MarcaController {
             throws MarcaNaoEncontradaException {
 
         try {
-            Optional<Marca> marca = marcaFacade.recuperar(id);
-            return ResponseEntity.ok(marca.get());
+            Marca marca = marcaFacade.recuperar(id);
+
+            return ResponseEntity.ok(marca);
         } catch (MarcaNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }
@@ -78,9 +78,9 @@ public class MarcaController {
     @Transactional
     public ResponseEntity<Marca> deletar(@PathVariable Long id) throws MarcaNaoEncontradaException {
         try {
-            Optional<Marca> marca = marcaFacade.deletar(id);
+            Marca marca = marcaFacade.deletar(id);
 
-            return ResponseEntity.ok(marca.get());
+            return ResponseEntity.ok(marca);
 
         } catch (MarcaNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
