@@ -51,7 +51,7 @@ class MarcaControllerTest {
 
         when(marcaFacade.recuperar(1L)).thenReturn(audi);
 
-        ResponseEntity<Marca> resposta = marcaController.recuperarPoId(1L);
+        ResponseEntity<Marca> resposta = marcaController.recuperarPorId(1L);
         assertEquals(audi, resposta.getBody());
         assertEquals(HttpStatus.OK, resposta.getStatusCode());
     }
@@ -60,7 +60,7 @@ class MarcaControllerTest {
     void deveRetornarNotFoundQuandoRecuperarMarcaComIdInexistente() {
         when(marcaFacade.recuperar(anyLong())).thenThrow(MarcaNaoEncontradaException.class);
 
-        ResponseEntity<Marca> resposta = marcaController.recuperarPoId(1L);
+        ResponseEntity<Marca> resposta = marcaController.recuperarPorId(1L);
         assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
     }
 
