@@ -1,5 +1,7 @@
 package br.com.caelum.carangobom.veiculo;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.caelum.carangobom.marca.MarcaRepository;
@@ -13,6 +15,12 @@ public class VeiculoFacade {
   public VeiculoFacade(VeiculoRepository veiculoRepository, MarcaRepository marcaRepository) {
     this.veiculoRepository = veiculoRepository;
     this.marcaRepository = marcaRepository;
+  }
+
+  public List<VeiculoView> listar() {
+    var veiculos = veiculoRepository.findAll();
+
+    return veiculos.stream().map(VeiculoView::new).collect(Collectors.toList());
   }
 
   public VeiculoView cadastrar(VeiculoForm form) {
