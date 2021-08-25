@@ -1,6 +1,7 @@
 package br.com.caelum.carangobom.veiculo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,16 @@ public class VeiculoFacade {
     var veiculos = veiculoRepository.findAll();
 
     return veiculos.stream().map(VeiculoView::new).collect(Collectors.toList());
+  }
+
+  public Optional<VeiculoView> recuperar(Long id) {
+    var veiculo = veiculoRepository.findById(id);
+
+    if (veiculo.isEmpty()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(new VeiculoView(veiculo.get()));
   }
 
   public VeiculoView cadastrar(VeiculoForm form) {
