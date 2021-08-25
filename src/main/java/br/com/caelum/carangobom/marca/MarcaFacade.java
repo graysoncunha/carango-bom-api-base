@@ -41,21 +41,16 @@ public class MarcaFacade {
     }
 
     public Marca alterar(Long id, Marca dadosAlteracaoMarca) throws MarcaNaoEncontradaException {
-        Optional<Marca> optionalMarca = repository.findById(id);
-
-        if (!optionalMarca.isPresent()) {
-            throw new MarcaNaoEncontradaException();
-        }
+        Optional<Marca> optionalMarca = recuperar(id);
 
         Marca marca = optionalMarca.get();
 
         marca.setNome(dadosAlteracaoMarca.getNome());
 
         return repository.save(marca);
-
     }
 
-    public void deletar(Long id) throws MarcaNaoEncontradaException {
+    public Optional<Marca> deletar(Long id) throws MarcaNaoEncontradaException {
         Optional<Marca> marca = repository.findById(id);
 
         if (!marca.isPresent()) {
@@ -63,6 +58,8 @@ public class MarcaFacade {
         }
 
         repository.deleteById(id);
+
+        return marca;
     }
 
 

@@ -76,11 +76,11 @@ public class MarcaController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> deletar(@PathVariable Long id) throws MarcaNaoEncontradaException {
+    public ResponseEntity<Marca> deletar(@PathVariable Long id) throws MarcaNaoEncontradaException {
         try {
-            marcaFacade.deletar(id);
+            Optional<Marca> marca = marcaFacade.deletar(id);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(marca.get());
 
         } catch (MarcaNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
