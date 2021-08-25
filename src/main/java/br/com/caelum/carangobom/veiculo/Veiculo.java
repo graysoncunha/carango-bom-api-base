@@ -30,6 +30,15 @@ public class Veiculo {
   @ManyToOne
   private Marca marca;
 
+  public Veiculo() {}
+
+  public Veiculo(Marca marca, String modelo, String ano, BigDecimal valor) {
+    this.marca = marca;
+    this.modelo = modelo;
+    this.ano = ano;
+    this.valor = valor;
+  }
+
   public Long getId() {
     return id;
   }
