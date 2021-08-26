@@ -34,14 +34,9 @@ public class MarcaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Marca> recuperarPorId(@PathVariable Long id) {
+        var marca = marcaFacade.recuperar(id);
 
-        try {
-            var marca = marcaFacade.recuperar(id);
-
-            return ResponseEntity.of(marca);
-        } catch (MarcaNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.of(marca);
     }
 
     @PostMapping

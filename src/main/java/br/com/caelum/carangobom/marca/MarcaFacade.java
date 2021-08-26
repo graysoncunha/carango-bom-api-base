@@ -19,25 +19,25 @@ public class MarcaFacade {
         return repository.findAllByOrderByNome();
     }
 
-    public Optional<Marca> recuperar(Long id) throws MarcaNaoEncontradaException {
+    public Optional<Marca> recuperar(Long id) {
         return repository.findById(id);
     }
 
-    public Marca cadastrar(Marca novaMarca) throws MarcaCadastradaAnteriormenteException {
+    public Marca cadastrar(Marca novaMarca) {
         var marca = repository.findByNome(novaMarca.getNome());
 
-        if (marca.isEmpty()) {
+        if (marca.isPresent()) {
             throw new MarcaCadastradaAnteriormenteException();
         }
 
         return repository.save(novaMarca);
     }
 
-    public Marca alterar(Long id, Marca dadosAlteracaoMarca) throws MarcaNaoEncontradaException {
+    public Marca alterar(Long id, Marca dadosAlteracaoMarca) {
         var marca = recuperar(id);
 
         if (marca.isEmpty()) {
-            throw new MarcaCadastradaAnteriormenteException();
+            throw new MarcaNaoEncontradaException();
         }
 
         var marcaParaAlteracao = marca.get();
@@ -47,7 +47,7 @@ public class MarcaFacade {
         return repository.save(marcaParaAlteracao);
     }
 
-    public Marca deletar(Long id) throws MarcaNaoEncontradaException {
+    public Marca deletar(Long id) {
         Optional<Marca> marca = repository.findById(id);
 
         if (!marca.isPresent()) {
