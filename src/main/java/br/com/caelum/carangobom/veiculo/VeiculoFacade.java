@@ -48,4 +48,27 @@ public class VeiculoFacade {
 
     return new VeiculoView(veiculo);
   }
+
+  public VeiculoView alterar(Long id, VeiculoForm form) {
+    var veiculoOpt = veiculoRepository.findById(id);
+
+    if (veiculoOpt.isEmpty()) {
+      throw new RuntimeException("Veículo não encontrado");
+    }
+
+    var marca = marcaRepository.findById(form.getMarcaId());
+
+    if (marca.isEmpty()) {
+      // TODO: Substituir por MarcaNaoEncontradaException após merge
+      throw new RuntimeException("Marca não encontrada");
+    }
+
+    var veiculo = veiculoOpt.get();
+    veiculo.setMarca(marca.get());
+    veiculo.setModelo(form.getModelo());
+    veiculo.setAno(form.getAno());
+    veiculo.setValor(form.getValor());
+
+    return new VeiculoView(veiculo);
+  }
 }
