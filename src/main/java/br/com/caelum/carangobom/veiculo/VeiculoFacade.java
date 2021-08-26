@@ -71,4 +71,8 @@ public class VeiculoFacade {
 
     return new VeiculoView(veiculo);
   }
+
+  public void deletar(Long id) {
+    veiculoRepository.deleteById(id);
+  }
 }

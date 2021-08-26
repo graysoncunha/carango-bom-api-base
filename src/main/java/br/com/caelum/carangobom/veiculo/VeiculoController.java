@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,5 +55,13 @@ public class VeiculoController {
     VeiculoView view = veiculoFacade.alterar(id, form);
 
     return ResponseEntity.ok(view);
+  }
+
+  @DeleteMapping("/{id}")
+  @Transactional
+  public ResponseEntity<?> deletar(@PathVariable Long id) {
+    veiculoFacade.deletar(id);
+
+    return ResponseEntity.ok().build();
   }
 }
