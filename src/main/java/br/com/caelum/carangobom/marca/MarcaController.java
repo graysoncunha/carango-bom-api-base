@@ -28,19 +28,17 @@ public class MarcaController {
     }
 
     @GetMapping
-    @Transactional
     public List<Marca> listarOrdenadoPorNome() {
         return marcaFacade.listarOrdenadoPorNome();
     }
 
     @GetMapping("/{id}")
-    @Transactional
     public ResponseEntity<Marca> recuperarPorId(@PathVariable Long id) {
 
         try {
             var marca = marcaFacade.recuperar(id);
 
-            return ResponseEntity.ok(marca);
+            return ResponseEntity.of(marca);
         } catch (MarcaNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }

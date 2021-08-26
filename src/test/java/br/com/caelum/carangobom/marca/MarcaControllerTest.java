@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -49,7 +50,7 @@ class MarcaControllerTest {
     void deveRetornarMarcaPeloId() {
         Marca audi = new Marca(1L, "Audi");
 
-        when(marcaFacade.recuperar(1L)).thenReturn(audi);
+        when(marcaFacade.recuperar(1L)).thenReturn(Optional.of(audi));
 
         ResponseEntity<Marca> resposta = marcaController.recuperarPorId(1L);
         assertEquals(audi, resposta.getBody());
@@ -121,7 +122,7 @@ class MarcaControllerTest {
         ResponseEntity<?> resposta = marcaController.deletar(1L);
         assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
 
-        verify(marcaRepository, never()).delete(any());
+        verify(marcaRepository, never()).deleteById(any());
     }
 
 }
