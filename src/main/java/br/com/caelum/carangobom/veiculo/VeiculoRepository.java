@@ -1,7 +1,15 @@
 package br.com.caelum.carangobom.veiculo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.repository.Repository;
 
-public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
+public interface VeiculoRepository extends Repository<Veiculo, Long> {
+  List<Veiculo> findAll();
 
+  Optional<Veiculo> findById(Long id);
+
+  void save(Veiculo veiculo);
+
+  void deleteById(Long id);
 }
