@@ -59,7 +59,6 @@ class MarcaControllerTest {
 
     @Test
     void deveRetornarNotFoundQuandoRecuperarMarcaComIdInexistente() {
-        when(marcaFacade.recuperar(anyLong())).thenThrow(MarcaNaoEncontradaException.class);
 
         ResponseEntity<Marca> resposta = marcaController.recuperarPorId(1L);
         assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
