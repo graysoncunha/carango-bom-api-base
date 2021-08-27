@@ -59,7 +59,7 @@ public class VeiculoController {
 
   @DeleteMapping("/{id}")
   @Transactional
-  public ResponseEntity<?> deletar(@PathVariable Long id) {
+  public ResponseEntity<Object> deletar(@PathVariable Long id) {
     veiculoFacade.deletar(id);
 
     return ResponseEntity.ok().build();

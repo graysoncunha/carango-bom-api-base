@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class VeiculoForm {
-  private Long MarcaId;
+  private Long marcaId;
 
   @NotBlank
   @Size(min = 2, message = "Deve ter {min} ou mais caracteres.")
@@ -18,11 +18,11 @@ public class VeiculoForm {
   private BigDecimal valor;
 
   public Long getMarcaId() {
-    return MarcaId;
+    return marcaId;
   }
 
   public void setMarcaId(Long marcaId) {
-    MarcaId = marcaId;
+    this.marcaId = marcaId;
   }
 
   public String getModelo() {
