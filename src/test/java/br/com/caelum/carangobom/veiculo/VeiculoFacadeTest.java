@@ -8,15 +8,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
-import br.com.caelum.carangobom.DomainException;
 import br.com.caelum.carangobom.marca.Marca;
 import br.com.caelum.carangobom.marca.MarcaRepository;
 
@@ -86,7 +85,7 @@ class VeiculoFacadeTest {
 
   @Test
   void naoDeveAlterarVeiculoInexistente() {
-    var marca = new Marca("Fiat");
+    var marca = new Marca("Volkswagen");
     var veiculo = new Veiculo("Gol", "2021", marca, new BigDecimal("70000"));
 
     when(veiculoRepository.findById(anyLong())).thenReturn(Optional.empty());
@@ -97,18 +96,15 @@ class VeiculoFacadeTest {
     form.setAno(veiculo.getAno());
     form.setValor(veiculo.getValor());
 
-    assertThrows(DomainException.class, () -> veiculoFacade.alterar(1L, form));
+    assertThrows(EntityNotFoundException.class, () -> veiculoFacade.alterar(1L, form));
   }
 
   private List<Veiculo> obterVeiculos() {
-    var veiculos = new ArrayList<Veiculo>();
-
     var marca = new Marca("Audi");
     var veiculo0 = new Veiculo(1L, "A4", "2000", marca, new BigDecimal("20000"));
     var veiculo1 = new Veiculo(2L, "A6", "2020", marca, new BigDecimal("22000"));
 
-    veiculos.add(veiculo0);
-    veiculos.add(veiculo1);
+    var veiculos = List.of(veiculo0, veiculo1);
 
     return veiculos;
   }
