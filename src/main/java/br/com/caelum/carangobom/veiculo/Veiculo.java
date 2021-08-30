@@ -33,7 +33,7 @@ public class Veiculo {
 
   protected Veiculo() {}
 
-  protected Veiculo(Long id, Marca marca, String modelo, String ano, BigDecimal valor) {
+  protected Veiculo(Long id, String modelo, String ano, Marca marca, BigDecimal valor) {
     this.id = id;
     this.marca = marca;
     this.modelo = modelo;
@@ -41,48 +41,35 @@ public class Veiculo {
     this.valor = valor;
   }
 
-  public Veiculo(Marca marca, String modelo, String ano, BigDecimal valor) {
-    this(null, marca, modelo, ano, valor);
+  public Veiculo(String modelo, String ano, Marca marca, BigDecimal valor) {
+    this(null, modelo, ano, marca, valor);
   }
 
   public Long getId() {
     return id;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public String getModelo() {
     return modelo;
-  }
-
-  public void setModelo(String modelo) {
-    this.modelo = modelo;
   }
 
   public String getAno() {
     return ano;
   }
 
-  public void setAno(String ano) {
-    this.ano = ano;
-  }
-
   public BigDecimal getValor() {
     return valor;
-  }
-
-  public void setValor(BigDecimal valor) {
-    this.valor = valor;
   }
 
   public Marca getMarca() {
     return marca;
   }
 
-  public void setMarca(Marca marca) {
+  public void atualizar(String modelo, String ano, Marca marca, BigDecimal valor) {
     this.marca = marca;
+    this.modelo = modelo;
+    this.ano = ano;
+    this.valor = valor;
   }
 
   @Override

@@ -42,7 +42,7 @@ public class VeiculoFacade {
       throw new MarcaNaoEncontradaException();
     }
 
-    var veiculo = new Veiculo(marca.get(), form.getModelo(), form.getAno(), form.getValor());
+    var veiculo = new Veiculo(form.getModelo(), form.getAno(), marca.get(), form.getValor());
 
     veiculoRepository.save(veiculo);
 
@@ -63,10 +63,7 @@ public class VeiculoFacade {
     }
 
     var veiculo = veiculoOpt.get();
-    veiculo.setMarca(marca.get());
-    veiculo.setModelo(form.getModelo());
-    veiculo.setAno(form.getAno());
-    veiculo.setValor(form.getValor());
+    veiculo.atualizar(form.getModelo(), form.getAno(), marca.get(), form.getValor());
 
     return new VeiculoView(veiculo);
   }

@@ -9,7 +9,7 @@ public interface VeiculoRepository extends Repository<Veiculo, Long> {
 
   Optional<Veiculo> findById(Long id);
 
-  void save(Veiculo veiculo);
+  Veiculo save(Veiculo veiculo);
 
   void deleteById(Long id);
 }
