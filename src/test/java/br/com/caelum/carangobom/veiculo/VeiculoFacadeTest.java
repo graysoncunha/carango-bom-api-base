@@ -1,7 +1,9 @@
 package br.com.caelum.carangobom.veiculo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
+import br.com.caelum.carangobom.DomainException;
 import br.com.caelum.carangobom.marca.Marca;
 import br.com.caelum.carangobom.marca.MarcaRepository;
 
@@ -27,14 +30,13 @@ class VeiculoFacadeTest {
   @Mock
   private MarcaRepository marcaRepository;
 
-  private List<Veiculo> veiculos;
+  private List<Veiculo> veiculos = obterVeiculos();
 
   @BeforeEach
   public void configuraMock() {
     openMocks(this);
 
     veiculoFacade = new VeiculoFacade(veiculoRepository, marcaRepository);
-    veiculos = obterVeiculos();
   }
 
   @ParameterizedTest
@@ -80,6 +82,22 @@ class VeiculoFacadeTest {
     assertEquals(veiculo.getValor(), veiculoView.getValor());
 
     verify(veiculoRepository).save(veiculo);
+  }
+
+  @Test
+  void naoDeveAlterarVeiculoInexistente() {
+    var marca = new Marca("Fiat");
+    var veiculo = new Veiculo("Gol", "2021", marca, new BigDecimal("70000"));
+
+    when(veiculoRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+    var form = new VeiculoForm();
+    form.setMarcaId(marca.getId());
+    form.setModelo(veiculo.getModelo());
+    form.setAno(veiculo.getAno());
+    form.setValor(veiculo.getValor());
+
+    assertThrows(DomainException.class, () -> veiculoFacade.alterar(1L, form));
   }
 
   private List<Veiculo> obterVeiculos() {

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.caelum.carangobom.DomainException;
 import br.com.caelum.carangobom.marca.MarcaNaoEncontradaException;
 import br.com.caelum.carangobom.marca.MarcaRepository;
 
@@ -53,7 +54,7 @@ public class VeiculoFacade {
     var veiculoOpt = veiculoRepository.findById(id);
 
     if (veiculoOpt.isEmpty()) {
-      throw new RuntimeException("Veículo não encontrado");
+      throw new DomainException("Veículo não encontrado");
     }
 
     var marca = marcaRepository.findById(form.getMarcaId());
