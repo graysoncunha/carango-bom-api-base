@@ -2,6 +2,7 @@ package br.com.caelum.carangobom.veiculo;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import java.math.BigDecimal;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -30,13 +31,18 @@ public class Veiculo {
   @ManyToOne
   private Marca marca;
 
-  public Veiculo() {}
+  protected Veiculo() {}
 
-  public Veiculo(Marca marca, String modelo, String ano, BigDecimal valor) {
+  protected Veiculo(Long id, Marca marca, String modelo, String ano, BigDecimal valor) {
+    this.id = id;
     this.marca = marca;
     this.modelo = modelo;
     this.ano = ano;
     this.valor = valor;
+  }
+
+  public Veiculo(Marca marca, String modelo, String ano, BigDecimal valor) {
+    this(null, marca, modelo, ano, valor);
   }
 
   public Long getId() {
@@ -77,6 +83,25 @@ public class Veiculo {
 
   public void setMarca(Marca marca) {
     this.marca = marca;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ano, id, marca, modelo, valor);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Veiculo other = (Veiculo) obj;
+    return Objects.equals(ano, other.ano) && Objects.equals(id, other.id)
+        && Objects.equals(marca, other.marca) && Objects.equals(modelo, other.modelo)
+        && Objects.equals(valor, other.valor);
   }
 
 }

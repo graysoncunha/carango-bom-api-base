@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.caelum.carangobom.marca.MarcaNaoEncontradaException;
 import br.com.caelum.carangobom.marca.MarcaRepository;
 
 @Service
@@ -38,8 +39,7 @@ public class VeiculoFacade {
     var marca = marcaRepository.findById(form.getMarcaId());
 
     if (marca.isEmpty()) {
-      // TODO: Substituir por MarcaNaoEncontradaException após merge
-      throw new RuntimeException("Marca não encontrada");
+      throw new MarcaNaoEncontradaException();
     }
 
     var veiculo = new Veiculo(marca.get(), form.getModelo(), form.getAno(), form.getValor());
@@ -59,8 +59,7 @@ public class VeiculoFacade {
     var marca = marcaRepository.findById(form.getMarcaId());
 
     if (marca.isEmpty()) {
-      // TODO: Substituir por MarcaNaoEncontradaException após merge
-      throw new RuntimeException("Marca não encontrada");
+      throw new MarcaNaoEncontradaException();
     }
 
     var veiculo = veiculoOpt.get();
