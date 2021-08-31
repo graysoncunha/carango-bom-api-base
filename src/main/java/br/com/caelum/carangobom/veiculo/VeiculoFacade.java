@@ -55,7 +55,6 @@ public class VeiculoFacade {
 
     if (veiculoOpt.isEmpty()) {
       throw new EntityNotFoundException("Veículo não encontrado");
-      // throw new DomainException("Veículo não encontrado");
     }
 
     var marca = marcaRepository.findById(form.getMarcaId());

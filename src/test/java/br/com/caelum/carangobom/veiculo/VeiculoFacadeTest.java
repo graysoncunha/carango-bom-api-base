@@ -2,7 +2,6 @@ package br.com.caelum.carangobom.veiculo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -66,11 +65,10 @@ class VeiculoFacadeTest {
     var marca = new Marca("Fiat");
     var veiculo = new Veiculo("Gol", "2021", marca, new BigDecimal("70000"));
 
-    when(marcaRepository.findById(any())).thenReturn(Optional.of(marca));
+    when(marcaRepository.findById(marca.getId())).thenReturn(Optional.of(marca));
     when(veiculoRepository.save(veiculo)).thenReturn(veiculo);
 
     var form = new VeiculoForm();
-    form.setMarcaId(marca.getId());
     form.setModelo(veiculo.getModelo());
     form.setAno(veiculo.getAno());
     form.setValor(veiculo.getValor());
