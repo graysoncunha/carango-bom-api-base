@@ -1,6 +1,7 @@
 package br.com.caelum.carangobom.veiculo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 import java.math.BigDecimal;
@@ -103,7 +104,7 @@ class VeiculoControllerTest {
     var resposta = veiculoController.deletar(1L);
     assertEquals(HttpStatus.OK, resposta.getStatusCode());
 
-    // verify(veiculoRepository).deleteById(1L);
+    verify(veiculoFacade).deletar(1L);
   }
 
 }
